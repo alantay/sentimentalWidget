@@ -27,6 +27,10 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
+  --rating-active: #fb7185; /* rose-400 */
+  --rating-hover: #f43f5e; /* rose-500 */
+  --rating-inactive: #6b7280; /* gray-500 */
+
   @media (max-width: 1024px) {
     font-size: 16px;
   }
@@ -34,9 +38,9 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
+    --text: #e5e7eb;
+    --text-h: #f9fafb;
+    --bg: #111318;
     --border: #2e303a;
     --code-bg: #1f2028;
     --accent: #c084fc;
@@ -57,7 +61,6 @@
   max-width: 100%;
   margin: 0 auto;
   text-align: center;
-  border-inline: 1px solid var(--border);
   min-height: 100svh;
   display: flex;
   flex-direction: column;
@@ -95,14 +98,6 @@ h2 {
 }
 p {
   margin: 0;
-}
-
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
 }
 
 code {
