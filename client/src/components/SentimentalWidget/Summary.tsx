@@ -13,7 +13,7 @@ export default function Summary({ submissions }: SummaryProps) {
     .sort((a, b) => b.createdAt - a.createdAt)
     .slice(0, 3);
   return (
-    <div className="w-full text-left">
+    <section className="w-full text-left" aria-label="feedback summary">
       <h3 className="mb-2 text-xl font-bold">Summary</h3>
       <div>Total submissions: {totalSubmissions}</div>
       <div>Average rating: {avgRating || "-"}</div>
@@ -23,6 +23,6 @@ export default function Summary({ submissions }: SummaryProps) {
           <li key={index}>"{submission.comment}"</li>
         ))}
       </ul>
-    </div>
+    </section>
   );
 }

@@ -7,6 +7,7 @@ export default function SubmitButton({ disabled }: SubmitButtonProps) {
   return (
     <button
       type="submit"
+      aria-label="Submit"
       disabled={disabled}
       className={clsx(
         "bg-accent-bg text-text hover:bg-accent hover:text-bg flex w-full cursor-pointer items-center justify-center rounded p-2 text-center transition",

@@ -1,3 +1,4 @@
+import { sleep } from "@/utils/sleep";
 import { useRef, useState } from "react";
 import CommentBox from "./CommentBox";
 import useFeedbackSubmission from "./hooks/useFeedbackSubmission";
@@ -5,7 +6,6 @@ import RatingChips from "./RatingChips";
 import SubmitButton from "./SubmitButton";
 import Summary from "./Summary";
 
-const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 const SUCCESS_MSG = "Thank you for your feedback.";
 
 function SentimentalWidget() {

@@ -29,14 +29,14 @@ export default function RatingChips({
       {Array.from({ length: 5 }).map((_, index) => {
         const isActive = displayValue !== null && index < displayValue;
         return (
-          <li>
+          <li key={index}>
             <button
               className={clsx(
                 "relative cursor-pointer",
                 disabled && "pointer-events-none",
               )}
               type="button"
-              key={index}
+              aria-label={`Rate ${index + 1} out of 5`}
               onClick={() => handleClick(index)}
               onMouseEnter={() => handleHover(index)}
               onMouseLeave={() => handleHover(null)}
