@@ -25,11 +25,11 @@ export default function RatingChips({
   };
 
   return (
-    <ul>
-      <li>
-        {Array.from({ length: 5 }).map((_, index) => {
-          const isActive = displayValue !== null && index < displayValue;
-          return (
+    <ul className="flex">
+      {Array.from({ length: 5 }).map((_, index) => {
+        const isActive = displayValue !== null && index < displayValue;
+        return (
+          <li>
             <button
               className={clsx(
                 "relative cursor-pointer",
@@ -44,7 +44,7 @@ export default function RatingChips({
             >
               <HeartIcon
                 className={clsx(
-                  "h-10 w-10",
+                  "h-14 w-14 p-1",
                   isActive && "text-rating-active fill-rating-active",
                   "hover:fill-rating-active hover:text-rating-active",
                   disabled && "text-rating-inactive fill-rating-inactive",
@@ -54,9 +54,9 @@ export default function RatingChips({
                 {index + 1}
               </span>
             </button>
-          );
-        })}
-      </li>
+          </li>
+        );
+      })}
     </ul>
   );
 }

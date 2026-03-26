@@ -9,7 +9,7 @@ export default function SubmitButton({ disabled }: SubmitButtonProps) {
       type="submit"
       disabled={disabled}
       className={clsx(
-        "bg-accent-bg text-text hover:bg-accent flex cursor-pointer items-center justify-center rounded p-2 text-center transition",
+        "bg-accent-bg text-text hover:bg-accent flex w-full cursor-pointer items-center justify-center rounded p-2 text-center transition",
         disabled && "pointer-events-none",
       )}
     >

@@ -18,7 +18,7 @@ export default function CommentBox({
       name={name}
       placeholder="Enter your comment"
       className={clsx(
-        "border-border h-24 rounded border p-2 text-sm",
+        "border-border h-24 w-full rounded border p-2 text-sm",
         disabled && "border-muted bg-muted",
       )}
       onChange={(e) => onChange(e.target.value)}
