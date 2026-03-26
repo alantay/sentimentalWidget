@@ -1,8 +1,9 @@
-import RatingChips from "./components/RatingChips";
+import SentimentalWidget from "./components/SentimentalWidget";
+
 function App() {
   return (
-    <main>
-      <RatingChips value={1} onChange={() => {}} />
+    <main className="mx-auto p-12">
+      <SentimentalWidget />
     </main>
   );
 }

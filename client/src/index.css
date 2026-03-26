@@ -27,9 +27,9 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  --rating-active: #fb7185; /* rose-400 */
-  --rating-hover: #f43f5e; /* rose-500 */
-  --rating-inactive: #6b7280; /* gray-500 */
+  --rating-active: var(--color-rose-400);
+  --rating-inactive: var(--color-gray-500);
+  --rating-diabled: var(--color-gray-100);
 
   @media (max-width: 1024px) {
     font-size: 16px;
@@ -105,4 +105,20 @@ code {
   line-height: 135%;
   padding: 4px 8px;
   background: var(--code-bg);
+}
+
+@theme inline {
+  --color-text: var(--text);
+  --color-text-h: var(--text-h);
+  --color-bg: var(--bg);
+  --color-border: var(--border);
+  --color-code-bg: var(--code-bg);
+
+  --color-accent: var(--accent);
+  --color-accent-bg: var(--accent-bg);
+  --color-accent-border: var(--accent-border);
+
+  --color-rating-active: var(--rating-active);
+  --color-rating-inactive: var(--rating-inactive);
+  --color-rating-disabled: var(--rating-diabled);
 }
