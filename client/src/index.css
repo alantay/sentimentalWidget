@@ -10,7 +10,6 @@
   --accent-bg: rgba(170, 59, 255, 0.1);
   --accent-border: rgba(170, 59, 255, 0.5);
   --muted: rgba(107, 99, 117, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
   --shadow:
     rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
 
@@ -31,7 +30,7 @@
   --rating-active: var(--color-rose-400);
   --rating-inactive: var(--color-gray-500);
   --rating-diabled: var(--color-gray-100);
-  --rating-error: var(--color-red-500);
+  --rating-error: var(--color-red-400);
   @media (max-width: 1024px) {
     font-size: 16px;
   }

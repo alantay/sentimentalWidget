@@ -10,6 +10,7 @@ export default function Summary({ submissions }: SummaryProps) {
     totalSubmissions;
 
   const top3 = [...submissions]
+    .filter(({ comment }) => comment.trim() !== "")
     .sort((a, b) => b.createdAt - a.createdAt)
     .slice(0, 3);
   return (

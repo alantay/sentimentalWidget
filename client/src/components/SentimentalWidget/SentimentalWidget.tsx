@@ -1,12 +1,13 @@
 import { sleep } from "@/utils/sleep";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import CommentBox from "./CommentBox";
 import useFeedbackSubmission from "./hooks/useFeedbackSubmission";
 import RatingChips from "./RatingChips";
 import SubmitButton from "./SubmitButton";
 import Summary from "./Summary";
 
-const SUCCESS_MSG = "Thank you for your feedback.";
+const SUCCESS_MSG = "❤️ Thank you for your feedback.";
+const VALIDATION_RATING_ERROR = "🙏 Please select a rating";
 
 function SentimentalWidget() {
   const [lockForm, setLockForm] = useState(false);
@@ -15,26 +16,15 @@ function SentimentalWidget() {
   const [ratingError, setRatingError] = useState("");
   const [confirmationMsg, setConfirmationMsg] = useState("");
   const { submission, addSubmission } = useFeedbackSubmission();
-  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  const showConfirmationMsg = (message: string) => {
-    setConfirmationMsg(message);
-
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-    }
-
-    timeoutRef.current = setTimeout(() => {
-      setConfirmationMsg("");
-    }, 4000);
-  };
 
   const handleRating = (rating: number) => {
+    setConfirmationMsg("");
     setRatingError("");
     setRating(rating);
   };
 
   const handleComment = (comment: string) => {
+    setConfirmationMsg("");
     setComment(comment);
   };
 
@@ -42,13 +32,14 @@ function SentimentalWidget() {
     event.preventDefault();
 
     if (rating === null) {
-      setRatingError("Please select a rating");
+      setConfirmationMsg("");
+      setRatingError(VALIDATION_RATING_ERROR);
       return; // prevent form submission
     }
 
     addSubmission({ rating, comment });
     setRatingError("");
-    showConfirmationMsg(SUCCESS_MSG);
+    setConfirmationMsg(SUCCESS_MSG);
     setLockForm(true);
 
     await sleep(3000);
@@ -57,31 +48,33 @@ function SentimentalWidget() {
     setLockForm(false);
   };
   return (
-    <div className="flex flex-col items-center justify-center gap-4">
-      <h2 className="text-3xl">Mini Sentimental Widget</h2>
-      <form
-        onSubmit={handleSubmit}
-        className="flex w-full flex-col items-center justify-center gap-4"
-      >
-        <RatingChips
-          value={rating}
-          onChange={handleRating}
-          disabled={lockForm}
-        />
-        <CommentBox
-          onChange={handleComment}
-          value={comment}
-          name="comment"
-          disabled={lockForm}
-        />
-        <SubmitButton disabled={lockForm} />
-      </form>
-      <Summary submissions={submission} />
-      <div>
-        {ratingError && <p className="text-rating-error">{ratingError}</p>}
-        {confirmationMsg && <p className="text-center">{confirmationMsg}</p>}
+    <>
+      <div className="flex flex-col items-center justify-center gap-4 rounded-2xl border p-4">
+        <h2 className="text-3xl">Mini Sentimental Widget</h2>
+        <form
+          onSubmit={handleSubmit}
+          className="flex w-full flex-col items-center justify-center gap-4"
+        >
+          <RatingChips
+            value={rating}
+            onChange={handleRating}
+            disabled={lockForm}
+          />
+          <CommentBox
+            onChange={handleComment}
+            value={comment}
+            name="comment"
+            disabled={lockForm}
+          />
+          <SubmitButton disabled={lockForm} />
+        </form>
+        <Summary submissions={submission} />
       </div>
-    </div>
+      <div className="mt-4">
+        {ratingError && <p className="text-rating-error">{ratingError}</p>}
+        {confirmationMsg && <p className="text-accent">{confirmationMsg}</p>}
+      </div>
+    </>
   );
 }
 
