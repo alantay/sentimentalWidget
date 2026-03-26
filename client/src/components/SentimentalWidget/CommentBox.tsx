@@ -1,24 +1,30 @@
+import clsx from "clsx";
 type CommentBoxProps = {
   value: string;
   onChange: (value: string) => void;
+  name?: string;
   disabled?: boolean;
-  id?: string;
 };
 
 export default function CommentBox({
   value,
   onChange,
+  name,
   disabled,
-  id,
+  ...rest
 }: CommentBoxProps) {
   return (
     <textarea
-      id={id}
+      name={name}
       placeholder="Enter your comment"
-      className="border-border h-24 rounded border p-2 text-sm"
+      className={clsx(
+        "border-border h-24 rounded border p-2 text-sm",
+        disabled && "border-muted bg-muted",
+      )}
       onChange={(e) => onChange(e.target.value)}
       value={value}
       disabled={disabled}
+      {...rest}
     ></textarea>
   );
 }

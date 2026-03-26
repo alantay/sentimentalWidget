@@ -1,3 +1,5 @@
+import clsx from "clsx";
+import { LoaderCircle } from "lucide-react";
 type SubmitButtonProps = {
   disabled?: boolean;
 };
@@ -6,9 +8,12 @@ export default function SubmitButton({ disabled }: SubmitButtonProps) {
     <button
       type="submit"
       disabled={disabled}
-      className="bg-accent text-text rounded p-2"
+      className={clsx(
+        "bg-accent-bg text-text hover:bg-accent flex cursor-pointer items-center justify-center rounded p-2 text-center transition",
+        disabled && "pointer-events-none",
+      )}
     >
-      Submit
+      {disabled ? <LoaderCircle className="animate-spin" /> : "Submit"}
     </button>
   );
 }

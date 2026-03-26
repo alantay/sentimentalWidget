@@ -31,7 +31,11 @@ export default function RatingChips({
           const isActive = displayValue !== null && index < displayValue;
           return (
             <button
-              className="relative cursor-pointer"
+              className={clsx(
+                "relative cursor-pointer",
+                disabled && "pointer-events-none",
+              )}
+              type="button"
               key={index}
               onClick={() => handleClick(index)}
               onMouseEnter={() => handleHover(index)}
