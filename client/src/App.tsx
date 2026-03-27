@@ -1,3 +1,4 @@
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import SentimentalWidget from "./components/SentimentalWidget";
 
@@ -6,6 +7,7 @@ function applyTheme(theme: "light" | "dark") {
 }
 
 function App() {
+  const queryClient = new QueryClient();
   const [theme, setTheme] = useState<"light" | "dark">("light");
 
   useEffect(() => {
@@ -18,14 +20,16 @@ function App() {
 
   return (
     <main className="mx-auto p-12">
-      <SentimentalWidget />
-      <button
-        type="button"
-        className="absolute top-4 right-4 cursor-pointer text-sm"
-        onClick={toggleTheme}
-      >
-        {theme === "light" ? "Switch to dark" : "Switch to light"}
-      </button>
+      <QueryClientProvider client={queryClient}>
+        <SentimentalWidget />
+        <button
+          type="button"
+          className="absolute top-4 right-4 cursor-pointer text-sm"
+          onClick={toggleTheme}
+        >
+          {theme === "light" ? "Switch to dark" : "Switch to light"}
+        </button>
+      </QueryClientProvider>
     </main>
   );
 }

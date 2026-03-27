@@ -1,27 +1,23 @@
-import type { Submission } from "@/components/SentimentalWidget/types";
 type SummaryProps = {
-  submissions: Submission[];
+  totalSubmissions: number;
+  averageRating: number | null;
+  recentComments: string[];
 };
 
-export default function Summary({ submissions }: SummaryProps) {
-  const totalSubmissions = submissions.length;
-  const avgRating =
-    submissions.reduce((acc, submission) => acc + submission.rating, 0) /
-    totalSubmissions;
-
-  const top3 = [...submissions]
-    .filter(({ comment }) => comment.trim() !== "")
-    .sort((a, b) => b.createdAt - a.createdAt)
-    .slice(0, 3);
+export default function Summary({
+  totalSubmissions,
+  averageRating,
+  recentComments,
+}: SummaryProps) {
   return (
     <section className="w-full text-left" aria-label="feedback summary">
       <h3 className="mb-2 text-xl font-bold">Summary</h3>
       <div>Total submissions: {totalSubmissions}</div>
-      <div>Average rating: {avgRating || "-"}</div>
+      <div>Average rating: {averageRating || "-"}</div>
       <hr className="my-4"></hr>
       <ul className="list-disc pl-4">
-        {top3.map((submission, index) => (
-          <li key={index}>"{submission.comment}"</li>
+        {recentComments.map((comment, index) => (
+          <li key={index}>"{comment}"</li>
         ))}
       </ul>
     </section>

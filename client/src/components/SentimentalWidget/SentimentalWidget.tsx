@@ -1,4 +1,6 @@
+import { fetchFeedbackSummary } from "@/api/feedback";
 import { sleep } from "@/utils/sleep";
+import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import CommentBox from "./CommentBox";
 import useFeedbackSubmission from "./hooks/useFeedbackSubmission";
@@ -16,6 +18,10 @@ function SentimentalWidget() {
   const [ratingError, setRatingError] = useState("");
   const [confirmationMsg, setConfirmationMsg] = useState("");
   const { submission, addSubmission } = useFeedbackSubmission();
+  const { data } = useQuery({
+    queryKey: ["feedbackSummary"],
+    queryFn: fetchFeedbackSummary,
+  });
 
   const handleRating = (rating: number) => {
     setConfirmationMsg("");
@@ -68,7 +74,11 @@ function SentimentalWidget() {
           />
           <SubmitButton disabled={lockForm} />
         </form>
-        <Summary submissions={submission} />
+        <Summary
+          averageRating={data?.averageRating ?? null}
+          totalSubmissions={data?.totalSubmissions ?? 0}
+          recentComments={data?.recentComments ?? []}
+        />
       </div>
       <div className="mt-4">
         {ratingError && <p className="text-rating-error">{ratingError}</p>}
