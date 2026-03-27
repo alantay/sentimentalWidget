@@ -1,15 +1,14 @@
-import { fetchFeedbackSummary } from "@/api/feedback";
-import { sleep } from "@/utils/sleep";
-import { useQuery } from "@tanstack/react-query";
+import { fetchFeedbackSummary, submitFeedback } from "@/api/feedback";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import CommentBox from "./CommentBox";
-import useFeedbackSubmission from "./hooks/useFeedbackSubmission";
 import RatingChips from "./RatingChips";
 import SubmitButton from "./SubmitButton";
 import Summary from "./Summary";
 
 const SUCCESS_MSG = "❤️ Thank you for your feedback.";
 const VALIDATION_RATING_ERROR = "🙏 Please select a rating";
+const FETCH_REACT_QUERY_KEY = ["feedbackSummary"];
 
 function SentimentalWidget() {
   const [lockForm, setLockForm] = useState(false);
@@ -17,10 +16,19 @@ function SentimentalWidget() {
   const [comment, setComment] = useState("");
   const [ratingError, setRatingError] = useState("");
   const [confirmationMsg, setConfirmationMsg] = useState("");
-  const { submission, addSubmission } = useFeedbackSubmission();
+  const queryClient = useQueryClient();
+
   const { data } = useQuery({
-    queryKey: ["feedbackSummary"],
+    queryKey: [FETCH_REACT_QUERY_KEY],
     queryFn: fetchFeedbackSummary,
+  });
+
+  const mutation = useMutation({
+    mutationFn: submitFeedback,
+    onSuccess: () => {
+      // Invalidate and refetch
+      queryClient.invalidateQueries({ queryKey: [FETCH_REACT_QUERY_KEY] });
+    },
   });
 
   const handleRating = (rating: number) => {
@@ -43,12 +51,11 @@ function SentimentalWidget() {
       return; // prevent form submission
     }
 
-    addSubmission({ rating, comment });
+    mutation.mutate({ rating, comment });
     setRatingError("");
     setConfirmationMsg(SUCCESS_MSG);
     setLockForm(true);
 
-    await sleep(3000);
     setComment("");
     setRating(null);
     setLockForm(false);
