@@ -19,7 +19,7 @@ export default function Summary({ submissions }: SummaryProps) {
       <div>Total submissions: {totalSubmissions}</div>
       <div>Average rating: {avgRating || "-"}</div>
       <hr className="my-4"></hr>
-      <ul className="list-disc pl-4">
+      <ul className="list-disc pl-4 italic">
         {top3.map((submission, index) => (
           <li key={index}>"{submission.comment}"</li>
         ))}

@@ -49,7 +49,7 @@ function SentimentalWidget() {
   };
   return (
     <>
-      <div className="flex flex-col items-center justify-center gap-4 rounded-2xl border p-4">
+      <div className="bg-primary text-primary-foreground flex flex-col items-center justify-center gap-4 rounded-2xl p-4">
         <h2 className="text-3xl">Mini Sentimental Widget</h2>
         <form
           onSubmit={handleSubmit}
@@ -71,8 +71,16 @@ function SentimentalWidget() {
         <Summary submissions={submission} />
       </div>
       <div className="mt-4">
-        {ratingError && <p className="text-rating-error">{ratingError}</p>}
-        {confirmationMsg && <p className="text-accent">{confirmationMsg}</p>}
+        {ratingError && (
+          <p className="bg-destructive text-muted rounded-2xl py-2">
+            {ratingError}
+          </p>
+        )}
+        {confirmationMsg && (
+          <p className="text-accent-foreground bg-accent rounded-2xl py-2">
+            {confirmationMsg}
+          </p>
+        )}
       </div>
     </>
   );

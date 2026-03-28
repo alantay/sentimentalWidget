@@ -1,15 +1,29 @@
 import { useEffect, useState } from "react";
 import SentimentalWidget from "./components/SentimentalWidget";
 
+const THEME_STORAGE_KEY = "theme";
 function applyTheme(theme: "light" | "dark") {
   document.documentElement.setAttribute("data-theme", theme);
 }
 
+function getInitialTheme(): "light" | "dark" {
+  const storedTheme = localStorage.getItem(THEME_STORAGE_KEY);
+
+  if (storedTheme === "light" || storedTheme === "dark") {
+    return storedTheme;
+  }
+
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
+}
+
 function App() {
-  const [theme, setTheme] = useState<"light" | "dark">("light");
+  const [theme, setTheme] = useState<"light" | "dark">(getInitialTheme);
 
   useEffect(() => {
     applyTheme(theme);
+    localStorage.setItem(THEME_STORAGE_KEY, theme);
   }, [theme]);
 
   const toggleTheme = () => {
