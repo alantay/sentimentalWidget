@@ -13,7 +13,10 @@ const feedbackSchema = z.object({
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: [
+      "http://localhost:5173",
+      "https://backend-integration.d1y15iaue9shp7.amplifyapp.com",
+    ],
   }),
 );
 
