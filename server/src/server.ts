@@ -4,7 +4,7 @@ import { z } from "zod";
 import { addSubmission, getSummary } from "./feedbackStore";
 
 const app = express();
-const PORT = 3000;
+const PORT = 3001;
 
 const feedbackSchema = z.object({
   rating: z.number().int().min(1).max(5),
