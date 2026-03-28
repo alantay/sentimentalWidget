@@ -10,7 +10,7 @@ export default function SubmitButton({ disabled }: SubmitButtonProps) {
       aria-label="Submit"
       disabled={disabled}
       className={clsx(
-        "bg-accent text-bg hover:bg-accent-bg hover:text-text flex w-full cursor-pointer items-center justify-center rounded p-2 text-center transition",
+        "bg-secondary text-secondary-foreground hover:bg-secondary/90 flex w-full cursor-pointer items-center justify-center rounded p-2 text-center transition",
         disabled && "pointer-events-none",
       )}
     >
