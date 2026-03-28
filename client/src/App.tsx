@@ -26,6 +26,7 @@ function App() {
 
   useEffect(() => {
     applyTheme(theme);
+    localStorage.setItem(THEME_STORAGE_KEY, theme);
   }, [theme]);
 
   const toggleTheme = () => {
