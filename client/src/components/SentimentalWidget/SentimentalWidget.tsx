@@ -19,7 +19,7 @@ function SentimentalWidget() {
   const queryClient = useQueryClient();
 
   const { data } = useQuery({
-    queryKey: [FETCH_REACT_QUERY_KEY],
+    queryKey: FETCH_REACT_QUERY_KEY,
     queryFn: fetchFeedbackSummary,
   });
 
@@ -27,7 +27,7 @@ function SentimentalWidget() {
     mutationFn: submitFeedback,
     onSuccess: () => {
       // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: [FETCH_REACT_QUERY_KEY] });
+      queryClient.invalidateQueries({ queryKey: FETCH_REACT_QUERY_KEY });
     },
   });
 
@@ -51,14 +51,19 @@ function SentimentalWidget() {
       return; // prevent form submission
     }
 
-    mutation.mutate({ rating, comment });
     setRatingError("");
     setConfirmationMsg(SUCCESS_MSG);
     setLockForm(true);
+    try {
+      await mutation.mutateAsync({ rating, comment });
 
-    setComment("");
-    setRating(null);
-    setLockForm(false);
+      setComment("");
+      setRating(null);
+    } catch {
+      setConfirmationMsg("");
+    } finally {
+      setLockForm(false);
+    }
   };
   return (
     <>
